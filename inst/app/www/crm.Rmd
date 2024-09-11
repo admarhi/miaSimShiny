@@ -314,7 +314,7 @@ we start drawing three secretion products for species C from a Dirichlet distrib
 
 ```{r}
 #secretion of C
-sec.C <- rdirichlet(1, c(1,1,1))*.5
+sec.C <- .rdirichlet(1, c(1,1,1))*.5
 
 #The metabolic preferences of A are set to the secretion products of C
 pref.A.D <- list(c(sec.C*1000, rep(1,8)))

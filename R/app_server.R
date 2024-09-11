@@ -28,7 +28,7 @@ app_server <- function(input, output, session) {
   ## compounds ####
   res_conc_crm <- reactive(input$resourcesConcentrationCRM)
   res_even_crm <- reactive(input$resourcesEvennessCRM)
-  resources_dist_crm <- reactive(rdirichlet(1, rep(1, n_resources_crm())*res_even_crm())*res_conc_crm()*n_resources_crm())
+  resources_dist_crm <- reactive(.rdirichlet(1, rep(1, n_resources_crm())*res_even_crm())*res_conc_crm()*n_resources_crm())
   res_custom_crm <- reactive(as.numeric(as.vector(text2char(input$resourcesCustomCRM))))
   resources_crm <- reactive({
     if (length(res_custom_crm()) < n_resources_crm()){
@@ -168,7 +168,7 @@ app_server <- function(input, output, session) {
   t_external_durations_crm <- reactive(as.numeric(text2char(input$tExternalDurationsCRM)))
   output$tExternalDurationsCRMOutput <- renderPrint(t_external_durations_crm())
   migration_p_crm <- reactive(input$migrationPCRM)
-  metacommunity_probability_crm <- reactive(as.numeric(text2chars(input$metacommunityProbabilityCRM, len = n_species_crm(), expr = paste0("rdirichlet(1, alpha = rep(1,", n_species_crm(), "))"))))
+  metacommunity_probability_crm <- reactive(as.numeric(text2chars(input$metacommunityProbabilityCRM, len = n_species_crm(), expr = paste0(".rdirichlet(1, alpha = rep(1,", n_species_crm(), "))"))))
   output$metacommunityProbabilityCRM <- renderPrint(metacommunity_probability_crm())
 
 
@@ -240,7 +240,7 @@ app_server <- function(input, output, session) {
   })
   observeEvent(input$CRMEX7, {
     #secretion of C
-    sec.C <- rdirichlet(1, c(1,1,1))*.5
+    sec.C <- .rdirichlet(1, c(1,1,1))*.5
     #The metabolic preferences of A are set to the secretion products of C
     pref.A.D <- list(c(sec.C*1000, rep(1,8)))
     em.A <- randomE(n_species = 1, n_resources = 11, names_species = 'A', trophic_preferences= pref.A.D, mean_production = 3, mean_consumption = 3)
@@ -398,7 +398,7 @@ app_server <- function(input, output, session) {
   t_external_durations_glv <- reactive(as.numeric(text2char(input$tExternalDurationsGLV)))
   output$tExternalDurationsGLVOutput <- renderPrint(t_external_durations_glv())
   migration_p_glv <- reactive(input$migrationPGLV)
-  metacommunity_probability_glv <- reactive(as.numeric(text2chars(input$metacommunityProbabilityGLV, len = n_species_glv(), expr = paste0("rdirichlet(1, alpha = rep(1,", n_species_glv(), "))"))))
+  metacommunity_probability_glv <- reactive(as.numeric(text2chars(input$metacommunityProbabilityGLV, len = n_species_glv(), expr = paste0(".rdirichlet(1, alpha = rep(1,", n_species_glv(), "))"))))
   output$metacommunityProbabilityGLV <- renderPrint(metacommunity_probability_glv())
 
   error_variance_glv <- reactive(input$errorVarianceGLV)
@@ -499,7 +499,7 @@ app_server <- function(input, output, session) {
   error_variance_hub <- reactive(input$errorVarianceHUB)
   k_events_hub <- reactive(input$kEventsHUB)
   migration_p_hub <- reactive(input$migrationPHUB)
-  metacommunity_probability_hub <- reactive(as.numeric(text2chars(input$metacommunityProbabilityHUB, len = n_species_hub(), expr = paste0("rdirichlet(1, alpha = rep(1,", n_species_hub(), "))"))))
+  metacommunity_probability_hub <- reactive(as.numeric(text2chars(input$metacommunityProbabilityHUB, len = n_species_hub(), expr = paste0(".rdirichlet(1, alpha = rep(1,", n_species_hub(), "))"))))
   output$metacommunityProbabilityHUB <- renderPrint(metacommunity_probability_hub())
 
   norm_hub <- reactive(input$normHUB)
@@ -599,7 +599,7 @@ app_server <- function(input, output, session) {
   output$tExternalDurationsLOGOutput <- renderPrint(t_external_durations_log())
   migration_p_log <- reactive(input$migrationPLOG)
   sigma_migration_log <- reactive(input$sigmaMigrationLOG)
-  metacommunity_probability_log <- reactive(as.numeric(text2chars(input$metacommunityProbabilityLOG, len = n_species_log(), expr = paste0("rdirichlet(1, alpha = rep(1,", n_species_log(), "))"))))
+  metacommunity_probability_log <- reactive(as.numeric(text2chars(input$metacommunityProbabilityLOG, len = n_species_log(), expr = paste0(".rdirichlet(1, alpha = rep(1,", n_species_log(), "))"))))
   output$metacommunityProbabilityLOG <- renderPrint(metacommunity_probability_log())
 
   norm_log <- reactive(input$normLOG)
